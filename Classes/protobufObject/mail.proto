@@ -1,0 +1,75 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//Mail 
+
+message BINMail {
+	required int64 mailId = 1;
+	optional int64 senderUserId = 2;
+	optional string senderUserName = 3;
+	optional int64 recipientUserId = 4;
+	optional string recipientUserName = 5;
+	optional string title = 6;
+	optional string body = 7;
+	optional int64 sentTime = 8;
+	optional bool readed = 9;
+	optional int32 attachItemId = 10;
+	optional int64 attachItemQuatity = 11;
+	optional int64 expiredTime = 12;
+}
+
+message BINFilterMailRequest {
+	required int32 firstResult = 1;//index của bản ghi đầu tiên
+	required int32 maxResult = 2;//tổng số bản ghi muốn lấy, firstResult, maxResult < 0 => lấy toàn bộ danh sách
+	optional int64 lastRequestTime = 3;//Thời gian cuối cùng gửi request (trường hợp muốn lấy email mới nhất mà ko muốn load toàn bộ email), nếu muốn lấy toàn bộ thì set giá trị = -1
+}
+
+message BINFilterMailResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINMail mails = 3;
+	optional int32 count = 4;
+	optional int64 lastRequestTime = 5;
+}
+
+message BINSendMailRequest {
+	repeated string recipientUserNames = 1;//danh sách userId người nhận
+	optional string title = 2;
+	optional string body = 3;
+	optional int64 parentId = 4;//id mail trước (trường hợp reply)
+}
+
+message BINSendMailResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+}
+
+message BINDeleteMailRequest {
+	repeated int64 selectedMailIds = 1;//danh sách email id cần xóa
+}
+
+message BINDeleteMailResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	repeated int64 deletedMailIds = 3;
+}
+
+message BINReadedMailRequest {
+	required int64 readedMailId = 1;//email id đã đọc cần xóa
+	optional bool getContent = 2;//load nội dung mail (trường hợp ban đầu chưa lấy nội dung mail về)
+}
+
+message BINReadedMailResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional BINMail mail = 3;
+}
+
+message BINClaimAttachItemRequest {
+	required int64 mailId = 1;//email id nhận vật phẩm đính kèm
+}
+
+message BINClaimAttachItemResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+}
+//End Mail 

@@ -1,0 +1,20 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//PurchaseMoney 
+//Message được gửi đi khi user thay đổi cấu hình
+
+message BINPurchaseMoneyRequest {
+	required string provider = 1;
+	required string cardSerial = 2;
+	required string cardPin = 3;
+	required string securityKey = 4;
+	required string captcha = 5;
+	optional bool toCash = 6;
+}
+
+message BINPurchaseMoneyResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+}
+
+//End PurchaseMoney 

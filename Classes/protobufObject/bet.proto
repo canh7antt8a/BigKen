@@ -1,0 +1,60 @@
+option java_package = "com.mi.game.network.data.bin";
+
+import "map_field_entry.proto";
+
+//Bet 
+//Message được gửi đi khi user thay đổi cấu hình
+
+
+message BINPrivateBet {
+	required int64 targetUserId = 1;
+	required int64 betMoney = 2;
+}
+
+//betType: 
+	//game ba cây: kiểu đặt cược (1- đặt cược bàn, 2- góp gà, 3- gui yeu cau solo giữa 2 người (ví dụ đánh biên trong 3 cây), 4 - dong y yeu cau solo)
+	//game xóc đĩa: cửa đặt cược(10 - chẵn, 11 - lẻ, 0: 4 ngửa, 1: 3 ngửa 1 sấp, 4: 4 sấp, 3: 1 ngửa 3 sấp)
+
+message BINBetRequest {
+	required int32 roomIndex = 1;
+	required int32 betType = 2;
+	optional int64 betMoney = 3;//số tiền cược
+	repeated BINPrivateBet privateBets = 4;//nếu là đánh biên, đẩy danh sách userId và mức cược vào list này 
+}
+
+//args:
+	//game xóc đĩa:
+		//key = totalBetGate, value =(tổng tiền của tất cả người chơi đặt vào cửa đang xét)
+		//key = totalPlayerBetGate, value = (tổng tiền của người chơi đặt vào cửa đang xét)
+
+message BINBetResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 sourceUserId = 3;
+	optional int32 betType = 4;
+	optional int64 betMoney = 5;
+	optional int64 targetUserId = 6;//userId của người muốn cược riêng (ví dụ đánh biên trong 3 cây)
+	repeated BINMapFieldEntry args = 7;//map chứa các thông tin đặc biệt cho từng game theo mô tả ở đầu file 
+}
+
+//End Bet
+
+//ExtraBet
+//Message gửi từ client khi có các  hành động mở rộng cho thao tác đặt cược
+//action
+//xóc đĩa: value = 1 (đặt lại), = 2(đặt gấp đôi), = 0(hủy cược)
+message BINExtraBetRequest {
+required int32 roomIndex = 1;
+optional int32 action = 2;//hành động
+}
+
+//args:
+//game xóc đĩa:
+//key = totalBetGate, value =(tổng tiền của tất cả người chơi đặt vào tất cả các cửa), format: String json
+//key = totalPlayerBetGate, value = (tổng tiền của người chơi đặt vào tất cả các cửa), format: String json
+message BINExtraBetResponse {
+required bool responseCode = 1;
+optional string message = 2;
+repeated BINMapFieldEntry args = 3;//map chứa các thông tin đặc biệt cho từng game theo mô tả ở đầu file
+}
+//End ExtraBet

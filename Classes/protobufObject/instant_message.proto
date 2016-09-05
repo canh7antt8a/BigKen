@@ -1,0 +1,31 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//InstantMessage
+//Message được client gửi đi khi người dùng gửi message chat.
+//Phạm vi:
+//1. Chat trong zone (scope = 1)
+//2. Chat trong phòng (scope = 2)
+//3. Chat private với người khác (scope = 3)
+
+message BINInstantMessageRequest {
+	required int32 scope = 1;
+	required string instantMessage = 2;
+	optional string receiverUserName = 3;
+	optional int64 receiverUserId = 4;
+}
+
+message BINInstantMessageResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 scope = 3;
+	optional string senderUserName = 4;
+	optional int64 senderUserId = 5;
+	optional string instantMessage = 6;
+	optional int64 sentTime = 7;
+	optional int32 zoneId = 8;
+	optional int32 roomIndex = 9;
+	optional string receiverUserName = 10;
+	optional int64 receiverUserId = 11;
+}
+
+//End InstantMessage 

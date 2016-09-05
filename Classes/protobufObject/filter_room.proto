@@ -1,0 +1,39 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//FilterRoom 
+
+message BINFilterRoomRequest {
+	required int32 zoneId = 1;
+	required bool vipRoom = 2;
+	required int32 firstResult = 3;//index bản ghi đầu tiên
+	required int32 maxResult = 4;//số bản ghi tối đa
+	optional int32 orderByField = 5;//= 1: sắp xếp theo minBet, = 2: sắp xếp theo số người chơi, = 3: sắp xếp theo index
+	optional bool asc = 6;//= true: sắp xếp tăng dần, false: giảm dần
+}
+
+message BINRoomPlay {
+	required int32 roomIndex = 1;
+	required string roomName = 2;
+	required int64 roomId = 3;
+	required int32 roomGroupId = 4;
+	required int32 minBet = 5;
+	required int64 minEnterMoney = 6;
+	required int32 roomCapacity = 7;//sức chứa của phòng
+	required int32 enteringPlayer = 8;//số người đã vào
+	required int32 playerSize = 9;//số người chơi tối đa
+	required int32 playingPlayer = 10;//số người đang ngồi chơi
+	required int32 level = 11;
+	required int32 tax = 12;
+	optional string ownerUserName = 13;
+	required bool vipRoom = 14;
+	required bool passwordRequired = 15;
+	optional string roomConfig = 16;
+}
+
+message BINFilterRoomResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINRoomPlay roomPlays = 3;
+}
+
+//End FilterRoom 

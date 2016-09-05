@@ -1,0 +1,45 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//Turn 
+//Message đc client gửi đi khi đánh bài hoặc bỏ lượt
+import "map_field_entry.proto"; 
+
+//args la 1 map cac tham so truyen len dang string
+//voi game tien len: 
+	//key = turnCards, value = chuoi string la gia tri quan bai cach nhau boi dau phay
+	//key = cardRemainingCount, value = số lượng quân bài còn lại của người vừa đánh
+	//key = passUp, value : true/false (true bo luot)
+	//key = newTurn, value:true/false (true: bat dau luot danh moi)
+// game phỏm
+	//Request
+		//key = action, value(1: đánh bài, 2: bốc bài, 3: ăn bài, 4 gửi bài, 5: hạ phỏm, 6: tự động hạ, 7: ù)
+		//key = data, value = dữ liệu tương ứng với từng action(chỉ có đánh bài, hạ phỏm, gửi bài mới có trường này)
+	//Respones
+		//key = action, value(1: đánh bài, 2: bốc bài, 3: ăn bài, 4 gửi bài, 5: hạ phỏm, 6: tự động hạ, 7: ù)
+		//key = data, value = dữ liệu tương ứng với từng action (nếu action = 2(bốc bài) thì chỉ có người chơi có id = nextTurnUserId là có dữ liệu này trong message trả về, các action khác tất cả người chơi đều nhận được)
+		//key = nextAction, value = các hành động có thể thực hiện tiếp (chỉ có người chơi có id = nextTurnUserId là có dữ liệu này trong message trả về)
+		//key = suggestionCards, value = các quân trong cạ mà có thể ăn đc quân bài người trước đánh (xuất hiện khi action = 1 - gợi ý cạ ăn, action = 4 - gợi ý phỏm hạ, action = 5 - gợi ý quân bài gửi được)
+		//key = isPivot, value = true/false lượt này có phải lượt bắt đầu chốt hay không, để thông báo cho cả bàn chơi biết (chỉ có tham số này khi action = 2)
+		//key = newFirstRealeaseId, value: id của user hạ đầu tiên (xuất hiện khi action = 3 - ăn bài. Khi đó có sự thay đổi người hạ đầu. Nếu người hạ đầu trước đã hạ phỏm => được tái phỏm)
+		//key = mainCount, value: số quân bài còn lại của nóc bài (action = 2 mới có tham số này)
+// game xóc đĩa
+	//Respones
+		//key = diceValue, value(0: 4 ngửa, 1: 3 ngửa 1 sấp, 4: 4 sấp, 3: 1 ngửa 3 sấp)
+message BINTurnRequest {
+	required int32 roomIndex = 1;
+	repeated BINMapFieldEntry args = 2;
+}
+
+//
+//
+message BINTurnResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 currentTurnUserId = 3;//id người đánh turn hiện tại
+	optional int64 nextTurnUserId = 4;//id người đánh kế tiếp
+	optional bool matchEnd = 5;// = true: kết thúc ván (trường hợp người đánh hiện tại hết bài)
+	optional int32 countDownTimer = 6;//thời gian đếm ngược, phụ thuộc vào tham số matchEnd (matchEnd = true: thời gian countDown đến khi nhận được message matchEnd, matchEnd = false: countDown cho người đánh tiếp theo)
+	repeated BINMapFieldEntry args = 7;//map chứa các thông tin đặc biệt cho từng game theo mô tả ở đầu file 
+}
+
+//End Turn 

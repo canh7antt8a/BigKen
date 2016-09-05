@@ -1,0 +1,17 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//KickPlayerOut
+//Message được gửi đi khi user muốn thay đổi thông tin cá nhân
+
+message BINKickPlayerOutRequest {
+	required int32 roomIndex = 1;
+	required int64 kickedUserId = 2;//id của user bị kích ra ngoài
+}
+
+message BINKickPlayerOutResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 kickedUserId = 3;//id của user bị kích ra ngoài
+}
+
+//End KickPlayerOut 

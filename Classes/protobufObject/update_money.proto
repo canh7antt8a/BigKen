@@ -1,0 +1,22 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//UpdateMoney 
+//Message được gửi đi khi có thay đổi dòng tiền của người chơi ( cộng thêm hoặc trừ đi )
+
+
+message BINMoneyBox {
+	required int64 userId = 1;//id của người có tiền thay đổi
+	required bool isCash = 2;//= true: cập nhật cash, = false: cập nhật gold
+	required int64 changeMoney = 3;//số tiền thay đổi (có thể dương hoặc âm)
+	required int64 currentMoney = 4;//số tiền sau khi cập nhật
+	optional int64 displayChangeMoney = 5;//số tiền dùng để client hiển thị hiệu ứng (thường là không tính thuế)
+	optional string reason = 6;//Lý do cộng/trừ tiền
+}
+
+message BINUpdateMoneyResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINMoneyBox moneyBoxes = 3;//List chứa danh sách người chơi có tiền thay đổi
+}
+
+//End UpdateMoney 

@@ -1,0 +1,36 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//LookUpMoneyHistory
+//Message được gửi đi khi user muốn xem lịch sử dòng cash
+//filterType: tiêu chí tra cứu
+	//1: lịch sử dòng cash
+	//2: lịch sử dòng gold
+	//3: lịch sử nạp cash
+	//4: lịch sử nạp gold
+	//5: lịch sử đổi cash
+message BINLookUpMoneyHistoryRequest {
+	required int32 firstResult = 1;//index của bản ghi đầu tiên
+	required int32 maxResult = 2;//tổng số bản ghi muốn lấy, firstResult, maxResult < 0 => lấy toàn bộ danh sách
+	required int32 filterType = 3;
+}
+
+message BINMoneyLog {
+	required int64 logId = 1;
+	optional string uuid = 2;
+	optional int64 logStamp = 3;
+	optional int64 insertedTime = 4;
+	optional int64 currentMoney = 5;
+	optional int64 changeMoney = 6;
+	optional int64 lastMoney = 7;
+	optional bool isCash = 8;
+	optional string transactionType = 9;
+	optional string description = 10;
+}
+
+message BINLookUpMoneyHistoryResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINMoneyLog moneyLogs = 3;
+}
+
+//End LookUpMoneyHistory 

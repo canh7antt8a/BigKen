@@ -1,0 +1,19 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//SendTextEmoticon
+//Message được gửi đi khi user muốn ném biểu tượng vào người chơi
+
+message BINSendTextEmoticonRequest {
+	required int32 textEmoticonId = 1;//id biểu tượng gửi
+	required int64 targetUserId = 2;//userId của người nhận
+}
+
+message BINSendTextEmoticonResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 textEmoticonId = 3;//id biểu tượng gửi
+	optional int64 senderUserId = 4;//id người gửi
+	optional int64 targetUserId = 5;//userId của người nhận
+}
+
+//End SendTextEmoticon 

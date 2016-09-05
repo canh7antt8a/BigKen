@@ -1,0 +1,14 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//MatchBegin
+//Message được gửi đi sau khi start match, server kiểm tra các điều kiện cần thiết và trả về  BINMatchBeginResponse cho client
+message BINMatchBeginRequest {
+	required int32 roomIndex = 1;
+}
+
+message BINMatchBeginResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 countDownTimer = 3; //thời gian đếm ngược cho lượt đánh đầu tiên, hết thời gian server sẽ tự đánh
+}
+//End MatchBegin 

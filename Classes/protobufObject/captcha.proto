@@ -1,0 +1,21 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//Captcha 
+//Message được gửi đi khi user thay đổi cấu hình
+
+message BINCaptchaRequest {
+	optional bool refresh = 1;
+}
+
+message BINCaptcha {
+	required string securityKey = 1;
+	required string captchaChallenge = 2;
+}
+
+message BINCaptchaResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional BINCaptcha captcha = 3;
+}
+
+//End Captcha 

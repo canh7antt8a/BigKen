@@ -1,0 +1,15 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//RoomOwnerChanged 
+
+message BINChangeRoomOwnerRequest {
+	required int32 roomIndex = 1;
+}
+
+message BINRoomOwnerChangedResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 newOwnerUserId = 3;
+	optional int32 changeOwnerRoomCd = 4;//changeOwnerRoomCd > 0 đếm ngược để thay chủ bàn
+}
+//End RoomOwnerChanged 

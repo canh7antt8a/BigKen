@@ -1,0 +1,42 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//import "player.proto";
+//ExitRoom 
+
+message BINExitRoomRequest {
+	required int32 roomIndex = 1;
+}
+
+message BINExitRoomResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional bool exitAfterMatchEnd = 3;//=true - dang ky thoat khi het van, false - thoat luon ( khi ban dang trong trang thai chua bat dau van choi)
+}
+
+//nguoi choi khac trong ban nhan duoc message co player dang ky thoat khoi phong trong truong hop phong dang choi
+message BINPlayerExitAfterMatchEndResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 exitUserId = 3;//userId cua nguoi dang ky thoat
+}
+
+//nguoi choi khac trong ban nhan duoc message co player thoat khoi phong trong truong hop ban dang khong choi
+message BINPlayerExitRoomResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 exitUserId = 3;//userId cua nguoi thoat
+	optional int64 ownerUserId = 4;//id cua chu phong moi neu co thay doi
+	optional int32 changeOwnerRoomCd = 5;//changeOwnerRoomCd > 0 đếm ngược để thay chủ bàn
+}
+
+//Message gửi từ client khi người chơi đăng ký thoát hủy thoát
+message BINCancelExitAfterMatchEndRequest {
+	required int32 roomIndex = 1;
+}
+
+message BINCancelExitAfterMatchEndResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 cancelExitUserId = 3;//userId của người hủy đăng ký thoát
+}
+//End ExitRoom 

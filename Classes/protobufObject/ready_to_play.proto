@@ -1,0 +1,18 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//ReadyToPlay
+//Message được gửi đi khi user muốn ngồi vào chỗ trống trên bàn
+
+message BINReadyToPlayRequest {
+	required int32 roomIndex = 1;
+	optional int32 tableIndex = 2;//vị trí mà người chơi muốn ngồi
+}
+
+message BINReadyToPlayResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 readyUserId = 3;//id của người chơi sẵn sàng
+	optional int32 tableIndex = 4;//vị trí mà người chơi ngồi
+}
+
+//End ReadyToPlay 

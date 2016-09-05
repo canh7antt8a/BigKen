@@ -1,0 +1,16 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//KillRoom 
+//Message được gửi đi khi admin muốn xóa 1 phòng
+
+message BINKillRoomRequest {
+	required int32 zoneId = 1;
+	required int32 roomIndex = 2;
+}
+
+message BINKillRoomResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+}
+
+//End KillRoom 

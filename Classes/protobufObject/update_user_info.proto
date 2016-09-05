@@ -1,0 +1,31 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//UpdateUserInfo 
+//Message được gửi đi khi user muốn thay đổi thông tin cá nhân
+//infoField : thông tin trường cần thay đổi
+	//infoField = 1: thay đổi tên hiển thị, kiểm tra trùng giá trị cũ
+	//infoField = 2: thay đổi email, kiểm tra định dạng email, kiểm tra trùng giá trị cũ
+	//infoField = 3: thay đổi số điện thoại, kiểm tra định dạng sđt, kiểm tra trùng giá trị cũ
+	//infoField = 4: thay đổi chứng minh thư, kiểm tra định dạng số, kiểm tra trùng giá trị cũ
+	//infoField = 5: thay đổi avatar, kiểm tra trùng giá trị cũ
+	//infoField = 6: thay đổi password
+//oldValue: giá trị cũ, trường hợp thay đổi password bắt buộc nhập
+//newValue: giá trị mới
+
+message BINEditingInfo {
+	required int32 infoField = 1;
+	optional string oldValue = 2;
+	required string newValue = 3;
+	optional string confirmValue = 4;
+}
+
+message BINUpdateUserInfoRequest {
+	repeated BINEditingInfo userInfos = 1;
+}
+
+message BINUpdateUserInfoResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+}
+
+//End UpdateUserInfo 

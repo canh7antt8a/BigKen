@@ -1,0 +1,16 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//UpdateUserSetting 
+//Message được gửi đi khi user thay đổi cấu hình
+
+message BINUpdateUserSettingRequest {
+	optional bool autoReady = 1;
+	optional bool autoDenyInvitation = 2;
+}
+
+message BINUpdateUserSettingResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+}
+
+//End UpdateUserSetting 

@@ -1,0 +1,33 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//StartMatch 
+
+//Message được client gửi đi khi ấn nút bắt đầu ván chơi
+import "map_field_entry.proto"; 
+
+message BINStartMatchRequest {
+	required int32 roomIndex = 1;		//index của room hiện tại
+}
+
+message BINStartMatchResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 countDownTimer = 3;	//thời gian đếm ngược sau khi ấn bắt đầu. thời gian này để người chơi có thể nhìn bài và chuẩn bị
+	optional int64 firstTurnUserId = 4;	//id của người đánh đầu tiên
+	repeated BINMapFieldEntry args = 5;
+}
+
+//args map chứa các thông tin thêm với từng game
+//tiến lên miền nam:
+	//currentCards : danh sách quân bài được chia sau khi start match
+	//cardRemainingCount: định dạng json, chứa thông tin số quân bài của những người chơi khác
+//Phỏm:
+	//key = mainCardCount, value = tổng số quân bài ở giữa bàn
+	//currentCards : danh sách quân bài được chia sau khi start match
+	//kitSameKindAvaiables : danh sách phỏm ngang đang có
+	//kitStraightAvaiables : danh sách phỏm dọc đang có
+	//bestKitCombinations : danh sách phỏm tối ưu (gồm cả các cạ dư ra)
+	//pairAvaiables : danh sách các cạ đang có
+	//singleCards: danh sách quân bài đứng 1 mình
+	//firstReleaseUserId : người hạ đầu tiên
+//End StartMatch 

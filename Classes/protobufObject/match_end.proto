@@ -1,0 +1,28 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//MatchEnd
+//Message được server gửi đi khi có sự kiện ván chơi kết thúc
+//Với game tiến lên matchEnd khi vừa chia bài xong có người tới trắng hoặc khi đánh bài có người hết bài 
+
+import "text_emoticon.proto"; 
+import "map_field_entry.proto"; 
+message BINMatchEndRequest {
+	required int32 roomIndex = 1;
+}
+
+//game phỏm
+//args
+//key = orderEnding, value: chuỗi json cho biết vị trí về khi hết ván định dạng {"userId":"orderEnding"}, nếu móm thì orderEnding = -1
+//key = cardRemaining, value : chuỗi json các quân bài của người chơi để lật bài, định dạng {"userId":"danh sách quân bài"}
+//key = compensationPlayerUserId, value: id của người chơi bị ù đền (chỉ xuất hiện khi có người ù đền)
+message BINMatchEndResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	repeated int64 winningUserIds = 3;//List userId thắng ván chơi (có những game có nhiều hơn 1 người chiến thắng)
+	repeated int64 losingUserIds = 4;//List userId thua ván chơi
+	repeated int64 drawUserIds = 5;//List userId hòa ván chơi
+	repeated BINTextEmoticon textEmoticons = 6;//text hiển thị cho mỗi người chơi(ví dụ lý do thắng, thua)
+	optional int32 countDownTimer = 7;
+	repeated BINMapFieldEntry args = 8;//map chứa các thông tin đặc biệt cho từng game
+}
+//End MatchEnd 

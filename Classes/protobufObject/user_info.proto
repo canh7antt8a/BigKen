@@ -1,0 +1,37 @@
+option java_package = "com.mi.game.network.data.bin";
+
+import "level.proto";
+//UserInfo 
+
+message BINUserInfo {
+	required int64 userId = 1;
+	required string userName = 2;
+	optional string displayName = 3;
+	optional int32 avatarId = 4;
+	optional int32 sex = 5;
+	optional int32 age = 6;
+	optional BINLevel level = 7;
+	optional BINMedal medal = 8;
+	optional int32 trustedIndex = 9;
+	optional int64 exp = 10;
+	optional int64 cash = 11;
+	optional int64 gold = 12;
+	optional int32 totalMatch = 13;
+	optional int32 totalWin = 14;
+	optional int64 lastLoginTime = 15;
+	optional bool isOnline = 16;
+	optional int32 userType = 17;//kiểu user, = 1: user đăng ký bình thường, = 2: user đăng nhập qua fb, google, = 3: quickplay
+	//thông tin cá nhân
+	optional string email = 18;
+	optional string mobile = 19;
+	optional string identity = 20;
+}
+
+//End UserInfo 
+//UserSetting
+message BINUserSetting {
+	required int64 userId = 1;
+	optional bool autoReady = 2;
+	optional bool autoDenyInvitation = 3;
+}
+//EndUserSetting

@@ -1,0 +1,24 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//ChangeRule 
+//Message đc client gửi đi chủ phòng muốn đổi luật chơi
+
+//args la 1 map cac tham so truyen len dang string
+//voi game tien len: 
+	//key = hiddenCardRemainingCount, value = false/true - Cho phép hiện / ẩn số lá bài còn lại
+	//key = gameMode, value = Kiểu chơi (1: truyền thống, 2: ngẫu nhiên, 3: solo)
+import "map_field_entry.proto";
+message BINChangeRuleRequest {
+	required int32 roomIndex = 1;
+	repeated BINMapFieldEntry args = 2;
+}
+
+//
+//
+message BINChangeRuleResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINMapFieldEntry args = 7;//map chứa các thông tin đặc biệt cho từng game theo mô tả ở đầu file 
+}
+
+//End ChangeRule 

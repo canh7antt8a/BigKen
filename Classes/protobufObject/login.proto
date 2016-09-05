@@ -1,0 +1,21 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//Login 
+import "user_info.proto";
+
+message BINLoginRequest {
+	required string userName = 1;
+	required string password = 2;
+}
+
+message BINLoginResponse {
+    required bool responseCode = 1;
+    optional string message = 2; 
+    optional BINUserInfo userInfo = 3;
+	optional BINUserSetting userSetting = 4;
+	optional string sessionId = 5;
+	optional bool hasPlayingMatch = 6;//nếu = true => có ván chơi đang chơi dở => chờ để xử lý đưa lại vào bàn
+	optional bool enableDebugLag = 7;
+}
+
+//End Login 
