@@ -1,0 +1,10 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//QuickPlay 
+
+message BINQuickPlayRequest {
+	required string deviceId = 1;
+	optional string deviceInfo = 2;
+}
+
+//End QuickPlay 

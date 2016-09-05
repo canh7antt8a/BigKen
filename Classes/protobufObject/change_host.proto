@@ -1,0 +1,35 @@
+option java_package = "com.mi.game.network.data.bin";
+
+// Change_host
+// Message được gửi đi khi muốn bán chương/xác nhận bán chương
+
+message BINChangeHostRequest {
+	required int32 roomIndex = 1;// Room index
+	required int64 userId = 2;// userId
+	optional bool isAccept = 3;// true: dong y, false: khong dong y
+	required int32 requestType = 4;// 1 - check doi chu phong, 2 - confirm dong y ban chuong, 3 - confirm dong y mua chuong
+}
+
+message BINChangeHostResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+    optional int64 hostId = 3;
+    optional int32 responseType = 4;// 1 - doi chu phong, 2 - yeu cau ban chuong, 3 - yeu cau mua chuong
+}
+
+// End Change_host
+
+//Host Registration
+
+message BINHostRegistrationRequest {
+required int32 roomIndex = 1;// Room index
+optional bool cancelRegistration = 2;//nếu hủy đăng ký thì gửi lên = true
+}
+
+message BINHostRegistrationResponse {
+required bool responseCode = 1;
+optional string message = 2;
+repeated int64 hostUserIdQueue = 3;//danh sách người đăng ký làm host
+}
+
+//End Host Registration

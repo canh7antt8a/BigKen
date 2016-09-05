@@ -1,0 +1,42 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//AssetConfig 
+//Message được gửi đi khi user thay đổi cấu hình
+
+message BINAssetConfigRequest {
+	required int32 type = 1;//= 1: thẻ cào, 2: hiện vật
+}
+
+message BINAsset {
+	required int32 assetId = 1;
+	required int32 type = 2;
+	required string provider = 3;//VTT - vịt teo,  VMS - Mô bi, VNP - Vi na
+	optional int64 parValue = 4;//Mệnh giá (đối với thẻ cào)
+	required int64 cashValue = 5;//giá trị xu cần đổi
+	required int32 trustedIndex = 6;//chỉ số tín nhiệm 
+	required bool active = 7;//= true mới hiển thị, false: ko hiển thị
+}
+
+message BINAssetConfigResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINAsset assets = 3;
+}
+//End AssetConfig 
+
+//ExchangeAsset
+message BINExchangeAssetRequest {
+	required int32 assetId = 1;
+	required int32 amount = 2;
+}
+
+message BINExchangeAssetResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+}
+//End ExchangeAsset
+	//optional int32 type = 3;
+	//optional int64 parValue = 4;//Mệnh giá (đối với thẻ cào)
+	//optional int64 cashValue = 5;//giá trị xu cần đổi
+	//optional int32 trustedIndex = 6;//chỉ số tín nhiệm 
+	//optional string responseData = 7;

@@ -1,0 +1,14 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//PrepareNewMatch
+//Message được server gửi đi ván chơi kết thúc, chuẩn bị cho ván mới
+message BINPrepareNewMatchRequest {
+	required int32 roomIndex = 1;
+}
+
+message BINPrepareNewMatchResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 countDownTimer = 3;//countDownTime > 0 đếm ngược để thay chủ bàn hoặc tự động startMatch
+}
+//End PrepareNewMatch 

@@ -1,0 +1,58 @@
+option java_package = "com.mi.game.network.data.bin";
+
+import "player.proto";
+import "filter_room.proto";
+import "map_field_entry.proto";
+//EnterRoom 
+
+message BINEnterRoomRequest {
+	required int32 roomIndex = 1;
+	optional string password = 2;
+}
+
+//args chứa các thông tin đặc trưng cho từng game
+//Game Tiến lên miền nam:
+	//key = currentCards, value = chuỗi lá bài còn trên tay, trường hợp rejoin là người chơi mới có tham số này
+	//key = lastTurnCards, value = chuỗi lá bài cuối cùng đánh ra
+	//key = cardRemainingCount, value = thông tin số lá bài còn lại của người chơi
+	//key = turnCdRemaining , thời gian đếm ngược còn lại
+	//key = hiddenCardRemainingCount , cho phép hiển thị quân bài
+	//key = gameMode, chế độ chơi của phòng
+//Game phỏm:
+	//key = currentCards, value = chuỗi lá bài còn trên tay, trường hợp rejoin là người chơi mới có tham số này
+	//key = mainCardCount, value = tổng số quân bài giữa bàn
+	//key = allReleaseCards, value = chuỗi các phỏm đã hạ của những người chơi = 'người chơi 1;người chơi 2;...' trong đó: người chơi 1='chuỗi phỏm 1-chuỗiphỏm 2-...'. Nếu là lượt hạ phỏm thì mới trả về tham số này
+	//key = gameMode, chế độ chơi của phòng
+	//key = allTrashCards, value = chuỗi các quân bài đã đánh của mỗi người chơi (nhưng không bị ăn). Nếu không có quân nào thì trả về BLANK, ngược lại chuỗi = 'người chơi 1;người chơi 2;...' trong đó nếu người chơi chưa đánh quân nào thì để BLANK
+	//key = allEatedCards, value = chuỗi các quân bài đã ăn của mỗi người chơi, mỗi người chơi cách nhau dấu: ';', ví dụ '3 8 9;4 5'
+	//key = allCurrentCards, value = chuỗi các quân bài trên tay mỗi người chơi, mỗi người chơi cách nhau dấu: ';'. Nếu là lượt hạ bài mới trả về tham số này
+message BINEnterRoomResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 zoneId = 3;
+	optional BINRoomPlay roomPlay = 4;
+	optional bool roomIsPlaying = 5;//trạng thái của phòng hiện tại đang chơi hay ko
+	repeated BINPlayer playingPlayers = 6;
+	repeated BINPlayer waitingPlayers = 7;
+	optional int64 ownerUserId = 8;
+	optional int64 currentTurnUserId = 9;
+	optional int32 enterRoomStatus = 10;//1-nguoi choi, 2-ngoi cho, 3-da la nguoi choi roi
+	repeated BINMapFieldEntry args = 11;//map chứa các thông tin đặc biệt cho từng game theo mô tả ở đầu file
+}
+
+//Message gửi đi khi client vào phòng bằng cách chọn mức cược (trường hợp enableDisplayRoomList = false -> không hiển thị danh sách phòng mà chỉ hiện thị các mức cược)
+//Hoặc khi người dùng ấn vào nút chơi ngay (khi ấy truyền lên roomGroupId = -1 )
+message BINEnterRoomGroupRequest {
+	required int32 roomGroupId = 1;
+	optional bool vipRoom = 2;
+}
+
+message BINPlayerEnterRoomResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional BINPlayer player = 3;
+	optional int32 enterRoomStatus = 4;//1-nguoi choi, 2-ngoi cho, 3-da la nguoi choi roi
+	optional int32 changeOwnerRoomCd = 5;//changeOwnerRoomCd > 0 đếm ngược để thay chủ bàn
+}
+
+//End EnterRoom 

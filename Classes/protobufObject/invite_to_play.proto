@@ -1,0 +1,66 @@
+option java_package = "com.mi.game.network.data.bin";
+
+import "filter_room.proto";
+import "user_info.proto";
+
+//LookUpUserToInvite 
+//Message được gửi đi khi user thay đổi cấu hình
+
+message BINLookUpUserToInviteRequest {
+	required int32 roomIndex = 1;
+	optional int32 maxResult = 2;
+}
+
+//chú ý phải gửi response cho tất cả người chơi để biết đang mời người khác vào phòng
+message BINLookUpUserToInviteResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINUserInfo suggestUsers = 3;
+}
+
+//End LookUpUserToInvite 
+//InviteToRoom
+message BINInviteToRoomRequest {
+	required int32 roomIndex = 1;
+	repeated int64 targetUserIds = 2;
+}
+
+message BINInviteToRoomResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 inviterUserId = 3;
+	optional string inviterUserName = 4;
+	optional BINRoomPlay roomPlay = 5;
+}
+//End InviteToRoom
+
+//Message đc client gửi đi khi chủ phòng hủy lời mời đã gửi trước đó
+//CancelInvitation
+message BINCancelInvitationRequest {
+	required int32 roomIndex = 1;
+	optional int64 targetUserId = 2;
+}
+//Response gửi tới cả người gửi lẫn người đc mời để tắt thông báo mời đi
+message BINCancelInvitationResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional int64 inviterUserId = 3;
+	optional int32 roomIndex = 4;
+}
+//End CancelInvitation
+
+//RelyInvitation
+//Message gửi đi khi người được mời chơi từ chối/chấp nhận lời mời
+message BINRelyInvitationRequest {
+	required int32 zoneId = 1;
+	required int32 roomIndex = 2;
+	optional bool accept = 3;//= true/false : chấp nhận hoặc từ chối lời mời
+}
+//nếu accept = true thì chuyển sang nghiệp vụ EnterRoom nếu người chơi chưa ở phòng nào cả. Ngược lại thì trả về accept = false
+//Ngược lại nếu từ chối phải gửi response cho tất cả người chơi trong phòng để thông báo người đc mời từ chối
+message BINRelyInvitationResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional bool accept = 3;
+}
+//End RelyInvitation

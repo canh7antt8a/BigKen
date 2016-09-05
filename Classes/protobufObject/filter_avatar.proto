@@ -1,0 +1,19 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//Message đc gửi khi client chọn màn hình thay avatar = > gửi request danh sách avatar
+//FilterAvatar 
+
+message BINFilterAvatarRequest {
+	required int32 firstResult = 1;//index của bản ghi đầu tiên
+	required int32 maxResult = 2;//tổng số bản ghi muốn lấy, firstResult, maxResult < 0 => lấy toàn bộ danh sách
+	optional int32 type = 3; //= 0: free avatar, 1: costly avatar, -1: all
+}
+
+message BINFilterAvatarResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated int32 avatarIds = 3;
+	optional int32 inUseAvatarId = 4;
+}
+
+//End FilterAvatar 

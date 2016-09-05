@@ -1,0 +1,40 @@
+option java_package = "com.mi.game.network.data.bin";
+
+import "map_field_entry.proto";
+
+//RedeemGiftCode
+//Message được gửi đi khi user nhập mã giftcode
+
+message BINRedeemGiftCodeRequest {
+	required string giftcode = 1;
+}
+
+message BINRedeemGiftCodeResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional bool success = 3;
+	repeated BINMapFieldEntry args = 4;//key = cash, value = (giá trị Xu nhận đc, nếu không có hoặc <=0 thì ko thông báo), key = gold (giá trị Ken nhận đc)
+}
+
+//End RedeemGiftCode
+
+message BINGiftCode {
+	required string giftcode = 1;
+	required int64 redeemUserId = 2;
+	required int64 redeemTime = 3;
+	required int32 cash = 4;
+	required int32 gold = 5;
+}
+
+//RedeemGiftCodeHistory
+message BINRedeemGiftCodeHistoryRequest {
+	required int32 firstResult = 1;//index của bản ghi đầu tiên
+	required int32 maxResult = 2;//tổng số bản ghi muốn lấy, firstResult, maxResult < 0 => lấy toàn bộ danh sách
+}
+
+message BINRedeemGiftCodeHistoryResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINGiftCode giftCodes = 3;
+}
+//End RedeemGiftCodeHistory

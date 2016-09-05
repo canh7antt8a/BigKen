@@ -1,0 +1,21 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//LockRoom
+//Message được client gửi đi khi muốn khóa/mở phòng.
+//Chỉ chủ phòng mới có chức năng khóa/mở phòng.
+//Khi ấn khóa phòng, chủ phòng nhập password để vào phòng
+//Nếu thành công tất cả người chơi sẽ nhận đc message mở/khóa phòng
+
+message BINLockRoomRequest {
+	required int32 roomIndex = 1;
+	required bool lock = 2;
+	optional string password = 3;//tối đa 8 ký tự, tối thiểu 1 ký tự
+}
+
+message BINLockRoomResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	optional bool lock = 3;
+}
+
+//End LockRoom 

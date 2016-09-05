@@ -1,0 +1,106 @@
+option java_package = "com.mi.game.network.data.bin";
+
+import "user_info.proto";
+
+//FilterFriend
+//Message được gửi đi khi user muốn hiển thị danh sách bạn bè
+
+message BINFilterFriendRequest {
+	required int32 firstResult = 1;//index của bản ghi đầu tiên
+	required int32 maxResult = 2;//tổng số bản ghi muốn lấy, firstResult, maxResult < 0 => lấy toàn bộ danh sách
+}
+
+message BINFilterFriendResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINUserInfo currentFriends = 3;
+}
+
+//End FilterFriend 
+
+//AddFriend
+//Message được gửi đi khi user muốn gửi yêu cầu kết bạn
+message BINAddFriendRequest {
+	required int64 targetUserId = 1;
+}
+
+message BINAddFriendResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 friendStatus = 3;//trạng thái bạn bè với người mời kết bạn
+}
+//End AddFriend
+
+//FilterAddFriend
+message BINAddFriend {
+	required int32 requestId = 1;
+	required BINUserInfo senderUser = 2;
+}
+
+message BINFilterAddFriendRequest {
+	required int32 firstResult = 1;//index của bản ghi đầu tiên
+	required int32 maxResult = 2;//tổng số bản ghi muốn lấy, firstResult, maxResult < 0 => lấy toàn bộ danh sách
+}
+
+message BINFilterAddFriendResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINAddFriend requestFriends = 3;
+}
+//End FilterAddFriend
+
+//ApproveAddFriend
+
+message BINApproveAddFriendRequest {
+	required int64 senderUserId = 1;
+	required bool accepted = 2;//true: accepted, false: deny
+}
+
+message BINApproveAddFriendResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 friendStatus = 3;//trạng thái bạn bè với người mời kết bạn
+}
+
+//End ApproveAddFriend
+
+//FindUser
+//Message được gửi đi khi user muốn tìm người chơi qua tên đăng nhập
+message BINFindUserRequest {
+	required string userNameQuery = 1;
+	required int32 firstResult = 2;//index của bản ghi đầu tiên
+	required int32 maxResult = 3;//tổng số bản ghi muốn lấy, firstResult, maxResult < 0 => lấy toàn bộ danh sách
+}
+
+message BINFindUserResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	repeated BINUserInfo userInfos = 3;
+}
+//End FindUser
+
+//Message được gửi đi khi user muốn xem thông tin chi tiết của người chơi
+//ViewUserInfo
+message BINViewUserInfoRequest {
+	required int64 targetUserId = 1;
+}
+
+message BINViewUserInfoResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional BINUserInfo userInfo = 3;
+	optional int32 friendStatus = 4;//0 : ko là gì của nhau, 1-là bạn bè, 2-đã gửi yêu cầu kết bạn, 3- có yêu cầu kết bạn
+}
+//End ViewUserInfo
+
+//RemoveFriend
+message BINRemoveFriendRequest {
+	required int64 targetUserId = 1;
+}
+
+message BINRemoveFriendResponse {
+	required bool responseCode = 1;
+    optional string message = 2;
+	optional int32 friendStatus = 3;//0 : ko là gì của nhau, 1-là bạn bè, 2-đã gửi yêu cầu kết bạn, 3- có yêu cầu kết bạn
+}
+//End RemoveFriend

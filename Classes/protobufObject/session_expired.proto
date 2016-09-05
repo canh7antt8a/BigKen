@@ -1,0 +1,10 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//SessionExpired 
+
+message BINSessionExpiredResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+}
+
+//End SessionExpired 

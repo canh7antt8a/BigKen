@@ -1,0 +1,22 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//TextEmoticon 
+//Message được gửi đi khi có icon biểu cảm được gửi
+
+message BINTextEmoticon {
+	required int64 userId = 1;//id của người nhận biểu cảm
+	required int32 emoticonId = 2;//id icon biểu cảm
+	optional string message = 3;//text đi kèm icon
+}
+
+//End TextEmoticon 
+
+//End TextEmoticon
+// emoticonId = 
+	//1-Tới trắng 5 đôi thông
+	//2-Tới trắng 6 đôi bất kỳ
+	//3-Tới trắng sảnh rồng
+	//4-Tới trắng tứ 2
+	//5-Tới trắng tứ 3
+	//6-Tới trắng 3 đôi thông có 3 bích
+	//7-12 cây đồng màu

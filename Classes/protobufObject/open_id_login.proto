@@ -1,0 +1,13 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//Open Id Login 
+
+message BINOpenIdLoginRequest {
+	required int32 channel = 1;
+	required string openId = 2;
+    optional string firstName = 3;
+	optional string lastName = 4;
+	optional string email = 5;
+}
+
+//Open Id Login 

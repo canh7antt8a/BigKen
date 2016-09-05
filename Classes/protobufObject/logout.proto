@@ -1,0 +1,14 @@
+option java_package = "com.mi.game.network.data.bin";
+
+//Logout 
+
+message BINLogoutRequest {
+	required bool doLogout = 1;
+}
+
+message BINLogoutResponse {
+    required bool responseCode = 1;
+    optional string message = 2;
+}
+
+//End Logout 
